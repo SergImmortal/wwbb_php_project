@@ -9,6 +9,8 @@ sudo apt-get upgrade -y
 sudo rm -Rf /var/www/*
 
 # Nginx setup
+sudo systemctl stop apache2.service
+sudo systemctl disable apache2.service
 sudo apt-get -y install nginx
 echo "Nginx installed"
 
@@ -62,7 +64,7 @@ ln -sf /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/cli/conf.d/20-redis.in
 sudo ln -s /var/www/wwbb.php/provision/nginx.conf  /etc/nginx/sites-enabled/
 sudo mysql -u vagrant -p1111 wwbb_php < /var/www/wwbb.php/provision/wwbb_php.sql
 sudo apt-get autoremove -y
-sudo service php7.2-fpm restartto
+sudo service php7.2-fpm restart
 sudo service nginx restart
 echo "Server start"
 
