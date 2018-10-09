@@ -42,6 +42,23 @@ echo "Table created"
 sudo apt-get install -y php-mysql
 echo "Mysql-server installed"
 
+##Redis client
+sudo apt-get install -y redis-server
+git clone https://github.com/phpredis/phpredis.git
+cd phpredis
+git checkout php7
+phpize
+./configure
+make && make install
+cd ..
+rm -rf phpredis
+
+echo "extension=redis.so" > /etc/php/7.2/mods-available/redis.ini
+
+ln -sf /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/fpm/conf.d/20-redis.ini
+
+ln -sf /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/cli/conf.d/20-redis.ini
+
 sudo ln -s /var/www/wwbb.php/provision/nginx.conf  /etc/nginx/sites-enabled/
 sudo mysql -u vagrant -p1111 wwbb_php < /var/www/wwbb.php/provision/wwbb_php.sql
 sudo apt-get autoremove -y
