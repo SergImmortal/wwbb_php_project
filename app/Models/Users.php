@@ -14,6 +14,7 @@ class Users extends Model
     public $timestamps = true;
 
 
+    // bad solution
     protected function updateTimestamps()
     {
         $time = $this->freshTimestamp();
